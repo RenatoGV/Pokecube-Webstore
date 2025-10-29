@@ -1,0 +1,26 @@
+---
+import Play from '@/assets/icons/play.svg'
+import Controller from '@/assets/icons/controller.svg'
+import Mods from '@/assets/icons/mods.svg'
+import { match } from 'ts-pattern'
+
+interface Props {
+   title: string
+   description: string
+   icon: 'play' | 'controller' | 'mods'
+}
+
+const { title, description, icon} = Astro.props
+---
+
+<div class="bg-gray-800 rounded-xl flex flex-col items-center justify-start p-10 gap-5 h-full">
+   {
+      match(icon)
+         .with('play', () => <Play class="fill-white" />)
+         .with('controller', () => <Controller class="fill-white" />)
+         .with('mods', () => <Mods class="fill-white" />)
+         .otherwise(() => null)
+   }
+   <p class="text-white text-center text-2xl font-extrabold">{ title }</p>
+   <p class="text-slate-400 text-center">{ description }</p>
+</div>

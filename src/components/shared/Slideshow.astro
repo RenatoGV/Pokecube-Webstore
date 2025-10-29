@@ -1,0 +1,85 @@
+---
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+interface Props {
+   images: string[]
+}
+
+const { images : fullImages } = Astro.props
+// const fullImages = images.map(image => {
+//    return image.startsWith('http')
+//       ? image
+//       : `${import.meta.env.PUBLIC_URL}/images/products/${image}`
+// })
+---
+
+
+<div class="swiper">
+  <div class="swiper-wrapper">
+     {
+      fullImages.map( image => (
+         <div class="swiper-slide">
+            <img src={image} alt="Product Image" class="w-full h-5/6 object-cover" />
+         </div>
+      ))
+     }
+  </div>
+  <div class="swiper-pagination"></div>
+</div>
+
+<style>
+   .swiper {
+      width: 100%;
+      --swiper-theme-color: #FC3D39;
+      --swiper-pagination-bullet-inactive-color: #4D4D4D;
+   }
+   
+   .swiper-slide {
+      width: 80%;
+      height: 500px;
+      transition: transform 0.3s ease;
+   }
+   
+   .swiper-slide img {
+      border-radius: 2px;
+   }
+
+   .swiper-pagination {
+      position: relative;
+      top: -50px;
+   }
+</style>
+
+<script>
+   import Swiper from 'swiper';
+   import { Pagination, EffectCoverflow } from 'swiper/modules';
+
+   document.addEventListener('astro:page-load', () => {
+      const swiper = new Swiper('.swiper', {
+         effect: "coverflow",
+         centeredSlides: true,
+         slidesPerView: "auto",
+         loop: true,
+         spaceBetween: -100,
+         coverflowEffect: {
+            rotate: 0,
+            stretch: -50,
+            depth: 200,
+            modifier: 1,
+            slideShadows: false,
+            scale: 0.8,
+         },
+         pagination: {
+            el: '.swiper-pagination',
+         },
+         
+         modules: [Pagination, EffectCoverflow]
+      });
+      
+      swiper.update()
+      swiper.slideToLoop(1, 0, false)
+   })
+
+
+</script>

@@ -1,16 +1,50 @@
 ---
+import Button from "@/components/shared/Button.astro";
+import Discord from '@/assets/icons/discord.svg'
+import Controller from '@/assets/icons/controller.svg'
+import MainLayout from "@/layouts/MainLayout.astro";
+import { Image } from "astro:assets";
+import Logo from "@/assets/images/FullLogo.png"
+import Slideshow from "@/components/shared/Slideshow.astro";
+import Img1 from "@/assets/images/1.png"
+import Img2 from "@/assets/images/2.png"
+import Img3 from "@/assets/images/3.png"
+import Card from "@/components/shared/Card.astro";
 
+const images = [Img1.src, Img2.src, Img3.src]
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout>
+	<section class="my-7 min-h-[60vh] px-20">
+		<div class="h-full flex flex-col lg:flex-row gap-5 justify-between items-center">
+			<div class="order-2 lg:order-1 flex flex-col items-center gap-2">
+				<Controller width={50} height={50} class="fill-primary-500" />
+				<div class="flex flex-col items-center">
+					<p class="uppercase text-primary-500 font-extrabold">43 jugadores</p>
+					<p class="uppercase text-white font-extrabold">mc.pokecube.com</p>
+				</div>
+			</div>
+			<Image class="order-1 lg:order-2" src={Logo} alt="Logo" width={300} height={300} quality={100} draggable="false" loading="eager" />
+			<div class="order-3 flex flex-col items-center gap-2">
+				<Discord width={50} height={50} class="fill-primary-500" />
+				<div class="flex flex-col items-center">
+					<p class="uppercase text-primary-500 font-extrabold">123 conectados</p>
+					<p class="uppercase text-white font-extrabold">discord.gg/pokecube</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="flex flex-col items-center gap-10 py-20 px-20">
+		<h1 class="text-4xl text-white font-bold m-auto text-center">¡Bienvenido a <span class="text-primary-500">Poke</span><span class="text-secondary-500">Cube</span>!</h1>
+		<h2 class="text-slate-400 text-center">¡Únete y juega con tus amigos! ¡Captura Pokémon, arma tu equipo y participa en torneos para convertirte en el mejor entrenador Pokémon!</h2>
+		<div class="w-xs">
+			<Button title="Jugar" />
+		</div>
+	</section>
+	<Slideshow images={images} />
+	<section class="grid grid-cols-1 lg:grid-cols-3 gap-10 py-10 px-20 lg:px-10">
+		<Card icon="play" title="Jugabilidad" description="Buen rendimiento en el servidor para jugar con tus amigos." />
+		<Card icon="controller" title="Launcher Propio" description="Descarga el launcher para instalar mods necesarios e ingresar fácilmente al servidor." />
+		<Card icon="mods" title="Mods Variados" description="Aprovecha la cantidad de mods variados para más diversión." />
+	</section>
+</MainLayout>

@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+   --color-primary-500: #FC3D39;
+   --color-primary-800: #A82624;
+   --color-secondary-500: #4D4D4D;
+}
+
+@layer components {
+  .header-animated {
+    @apply sticky top-0 flex justify-center z-999;
+  }
+
+  .header-inner {
+    @apply w-screen flex justify-between px-10 py-5 border-transparent transition-all duration-500;
+
+    animation-timeline: scroll();
+    animation-range: 150px 650px;
+    animation-fill-mode: forwards;
+    animation-name: header-scroll;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    @keyframes header-scroll {
+      to {
+         width: 80vw;
+         margin-top: 20px;
+         transform: scale(0.9);
+         border-radius: 100vw;
+         border-color: rgba(255, 255, 255, 0.15);
+         border-width: 2px;
+         backdrop-filter: blur(3px);
+      }
+    }
+  }
+}
