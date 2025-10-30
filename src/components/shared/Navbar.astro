@@ -8,7 +8,7 @@ const links = [
    { href: '/login', text: 'Iniciar sesión'},
 ]
 
-const currentPath = Astro.url.pathname
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
 ---
 
 <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-slate-900 z-40 transition-transform duration-500 -translate-y-full shadow-lg">
