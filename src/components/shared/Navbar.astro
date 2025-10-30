@@ -1,13 +1,23 @@
 ---
 import Down from "@/assets/icons/down.svg"
+
+const links = [
+   { href: '/', text: 'Principal'},
+   { href: '/store', text: 'Tienda'},
+   { href: '/download', text: 'Launcher'},
+   { href: '/login', text: 'Iniciar sesión'},
+]
+
+const currentPath = Astro.url.pathname
 ---
 
 <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-slate-900 z-40 transition-transform duration-500 -translate-y-full shadow-lg">
   <ul class="flex flex-col items-center gap-8 py-10 text-white font-bold text-xl">
-      <li><a href="#" class="text-primary-500 font-bold hover:opacity-80">Principal</a></li>
-      <li><a href="#" class="text-white font-bold hover:opacity-80">Tienda</a></li>
-      <li><a href="#" class="text-white font-bold hover:opacity-80">Reglas</a></li>
-      <li><a href="#" class="text-white font-bold hover:opacity-80">Iniciar sesión</a></li>
+      {
+         links.map(({ href, text}) => (
+            <li><a href={href} class={`${currentPath === href ? 'text-primary-500' : 'text-white'} font-bold hover:opacity-80`}>{text}</a></li>
+         ))
+      }
   </ul>
 </div>
 
@@ -17,18 +27,11 @@ import Down from "@/assets/icons/down.svg"
          <p class="text-5xl font-bold text-primary-500">Poke<span class="text-secondary-500">Cube</span></p>
       </a>
       <ul class="hidden items-center gap-10 md:flex">
-         <li>
-            <a href="#" class="text-primary-500 font-bold hover:opacity-80">Principal</a>
-         </li>
-         <li>
-            <a href="#" class="text-white font-bold hover:opacity-80">Tienda</a>
-         </li>
-         <li>
-            <a href="#" class="text-white font-bold hover:opacity-80">Reglas</a>
-         </li>
-         <li>
-            <a href="#" class="text-white font-bold hover:opacity-80">Iniciar sesión</a>
-         </li>
+         {
+            links.map(({ href, text}) => (
+               <li><a href={href} class={`${currentPath === href ? 'text-primary-500' : 'text-white'} font-bold hover:opacity-80`}>{text}</a></li>
+            ))
+         }
       </ul>
       <button id="menu-btn" type="button" class="flex justify-center items-end cursor-pointer hover:opacity-80 md:hidden">
          <Down width={40} height={40} class="fill-white" />
@@ -37,28 +40,29 @@ import Down from "@/assets/icons/down.svg"
 </nav>
 
 <script>
-  const btn = document.getElementById("menu-btn") as HTMLButtonElement
-  const menu = document.getElementById("mobile-menu") as HTMLDivElement
-  const navbar = document.getElementById("navbar") as HTMLElement
+   document.addEventListener('astro:page-load', () => {
+      const btn = document.getElementById("menu-btn") as HTMLButtonElement
+      const menu = document.getElementById("mobile-menu") as HTMLDivElement
+      const navbar = document.getElementById("navbar") as HTMLElement
 
-  let open = false
+      let open = false
 
-  btn.addEventListener("click", () => {
-      if(!btn) return
-      open = !open
+      btn.addEventListener("click", () => {
+         open = !open
 
-      if (open) {
-         menu.classList.remove("-translate-y-full")
-         menu.classList.add("translate-y-0")
-         navbar.classList.add("translate-y-[80vh]")
-         btn.querySelector("svg")?.classList.add("rotate-180")
-         document.body.style.overflow = "hidden"
-      } else {
-         menu.classList.add("-translate-y-full")
-         menu.classList.remove("translate-y-0")
-         navbar.classList.remove("translate-y-[80vh]")
-         btn.querySelector("svg")?.classList.remove("rotate-180")
-         document.body.style.overflow = ""
-      }
-  })
+         if (open) {
+            menu.classList.remove("-translate-y-full")
+            menu.classList.add("translate-y-0")
+            navbar.classList.add("translate-y-[80vh]")
+            btn.querySelector("svg")?.classList.add("rotate-180")
+            document.body.style.overflow = "hidden"
+         } else {
+            menu.classList.add("-translate-y-full")
+            menu.classList.remove("translate-y-0")
+            navbar.classList.remove("translate-y-[80vh]")
+            btn.querySelector("svg")?.classList.remove("rotate-180")
+            document.body.style.overflow = ""
+         }
+      })
+   })
 </script>

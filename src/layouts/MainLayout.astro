@@ -7,9 +7,15 @@ import Logo from "@/assets/images/Logo.png"
 import Background from "@/assets/images/background.png"
 import { getImage } from "astro:assets";
 
+interface Props {
+   title: string
+}
+
 const { src } = await getImage({ src: Logo, width: 64, format: 'png' })
 const smallBg = await getImage({src: Background, width: 30, format: 'webp', quality: 20})
 const fullBg = await getImage({src: Background, width: 1920, format: 'webp', quality: 80})
+
+const { title } = Astro.props
 ---
 
 <html lang="en">
@@ -18,7 +24,7 @@ const fullBg = await getImage({src: Background, width: 1920, format: 'webp', qua
 		<link rel="icon" type="image/png" href={src} />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>PokeCube | Home</title>
+		<title>{ title }</title>
       <ClientRouter />
 	</head>
 	<body class="bg-slate-900">
