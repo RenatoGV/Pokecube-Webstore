@@ -8,7 +8,7 @@
 
 @layer components {
   .header-animated {
-    @apply sticky top-0 flex justify-center z-999;
+    @apply sticky top-0 flex justify-center z-999 transition-transform duration-500;
   }
 
   .header-inner {
