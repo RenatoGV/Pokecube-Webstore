@@ -4,9 +4,12 @@ import Navbar from "@/components/shared/Navbar.astro"
 import "@/styles/global.css"
 import { ClientRouter } from "astro:transitions"
 import Logo from "@/assets/images/Logo.png"
+import Background from "@/assets/images/background.png"
 import { getImage } from "astro:assets";
 
 const { src } = await getImage({ src: Logo, width: 64, format: 'png' })
+const smallBg = await getImage({src: Background, width: 30, format: 'webp', quality: 20})
+const fullBg = await getImage({src: Background, width: 1920, format: 'webp', quality: 80})
 ---
 
 <html lang="en">
@@ -15,11 +18,11 @@ const { src } = await getImage({ src: Logo, width: 64, format: 'png' })
 		<link rel="icon" type="image/png" href={src} />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>PokeCube</title>
+		<title>PokeCube | Home</title>
       <ClientRouter />
 	</head>
 	<body class="bg-slate-900">
-      <div class=`relative h-[70vh] bg-cover bg-center bg-[url(/images/background.png)]`>
+      <div id="bg-image" class="relative h-[70vh] bg-cover bg-center transition-all duration-700 opacity-0" style={`background-image: url(${smallBg.src});`} data-fullbg={fullBg.src}>
          <div class="absolute inset-0 bg-slate-900/50"></div>
          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent"></div>
          <div class="relative z-10">
@@ -32,3 +35,19 @@ const { src } = await getImage({ src: Logo, width: 64, format: 'png' })
       </div>
 	</body>
 </html>
+<script>
+   document.addEventListener("astro:page-load", () => {
+      const bgDiv = document.getElementById("bg-image") as HTMLDivElement
+
+      const fullImg = new Image()
+      
+      const fullSrc = bgDiv.dataset.fullbg || ''
+
+      fullImg.src = fullSrc
+
+      fullImg.onload = () => {
+         bgDiv.style.backgroundImage = `url(${fullImg.src})`
+         bgDiv.style.opacity = "1"
+      }
+   })
+</script>
