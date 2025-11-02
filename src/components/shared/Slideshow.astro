@@ -1,9 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 interface Props {
-   images: string[]
+   images: ImageMetadata[]
 }
 
 const { images : fullImages } = Astro.props
@@ -20,7 +21,7 @@ const { images : fullImages } = Astro.props
      {
       fullImages.map( image => (
          <div class="swiper-slide">
-            <img src={image} alt="Product Image" class="w-full h-5/6 object-cover" />
+            <Image src={image} alt="Pokemon BG" class="w-full h-5/6 object-cover" />
          </div>
       ))
      }
