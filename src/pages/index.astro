@@ -12,6 +12,12 @@ import Img3 from "@/assets/images/3.png"
 import Card from "@/components/shared/Card.astro";
 
 const images = [Img1.src, Img2.src, Img3.src]
+
+const features: { icon: "play" | "controller" | "mods", title: string, description: string }[] = [
+   { icon: 'play', title: 'Jugabilidad', description: 'Buen rendimiento en el servidor para jugar con tus amigos.' },
+   { icon: 'controller', title: 'Launcher Propio', description: 'Descarga el launcher para instalar mods necesarios e ingresar fácilmente al servidor.' },
+   { icon: 'mods', title: 'Mods Variados', description: 'Aprovecha la cantidad de mods variados para más diversión.' }
+]
 ---
 
 <MainLayout title="PokeCube | Home">
@@ -43,8 +49,8 @@ const images = [Img1.src, Img2.src, Img3.src]
 	</section>
 	<Slideshow images={images} />
 	<section class="grid grid-cols-1 lg:grid-cols-3 gap-10 py-10 px-5 lg:px-10">
-		<Card icon="play" title="Jugabilidad" description="Buen rendimiento en el servidor para jugar con tus amigos." />
-		<Card icon="controller" title="Launcher Propio" description="Descarga el launcher para instalar mods necesarios e ingresar fácilmente al servidor." />
-		<Card icon="mods" title="Mods Variados" description="Aprovecha la cantidad de mods variados para más diversión." />
+		{
+			features.map( feature => ( <Card icon={feature.icon} title={feature.title} description={feature.description} /> ) )
+		}
 	</section>
 </MainLayout>

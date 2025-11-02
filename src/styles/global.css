@@ -34,3 +34,7 @@
     }
   }
 }
+
+html {
+   scroll-behavior: smooth;
+}

@@ -1,0 +1,32 @@
+---
+import Rocket from '@/assets/icons/rocket.svg'
+import News from '@/assets/icons/news.svg'
+import Secure from '@/assets/icons/secure.svg'
+import Gear from '@/assets/icons/Gear.svg'
+import { match } from 'ts-pattern'
+
+interface Props {
+   title: string
+   description: string
+   icon: 'rocket' | 'news' | 'secure' | 'gear'
+}
+
+const { title, description, icon } = Astro.props
+---
+
+<div class="flex flex-col gap-5 items-center">
+   <div class="relative p-5 w-fit">
+      <span class="absolute top-0 left-0 w-5 h-2 border-t-2 border-l-2 border-primary-500"></span>
+      <span class="absolute bottom-0 right-0 w-5 h-2 border-b-2 border-r-2 border-primary-500"></span>
+      {
+         match(icon)
+            .with('rocket', () => <Rocket class="fill-primary-500 w-16 h-16" />)
+            .with('news', () => <News class="fill-primary-500 w-16 h-16" />)
+            .with('secure', () => <Secure class="fill-primary-500 w-16 h-16" />)
+            .with('gear', () => <Gear class="fill-primary-500 w-16 h-16" />)
+            .otherwise(() => null)
+      }
+   </div>
+   <h2 class="text-xl text-white font-bold text-center">{ title }</h2>
+   <p class="text-slate-400 text-center">{ description }</p>
+</div>

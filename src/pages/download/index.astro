@@ -1,0 +1,53 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import Image from "astro/components/Image.astro";
+import Launcher from "@/assets/images/Launcher.png"
+import FeatureCard from "@/components/shared/FeatureCard.astro"
+import Button from "@/components/shared/Button.astro";
+
+const features: { icon: "rocket" | "news" | "secure" | "gear", title: string, description: string }[] = [
+   { icon: 'rocket', title: 'Instalación Automática', description: 'Olvídate de configuraciones complicadas. Descarga e instala todos los mods necesarios para jugar con un solo click.' },
+   { icon: 'news', title: 'Novedades del Servidor', description: 'Mantente al día con los últimos eventos, actualizaciones y anuncios desde la pantalla principal del Launcher.' },
+   { icon: 'secure', title: 'Inicio de Sesión Seguro', description: 'Conéctate fácilmente usando tu cuenta de Microsoft o el nombre de usuario, con soporte de autenticación segura.' },
+   { icon: 'gear', title: 'Actualizaciones del Cliente', description: 'El Launcher detecta nuevas versiones del modpack y las actualiza sin necesidad de reinstalar nada.' },
+]
+
+---
+
+<MainLayout title="PokeCube | Descargar Launcher" >
+   <section class="relative h-[90vh] flex px-5">
+      <div class="w-full lg:w-1/2 flex justify-center items-center h-full gap-5 z-10">
+         <div class="flex flex-col gap-10 items-center lg:items-start">
+            <h1 class="uppercase text-4xl text-white font-bold h-3/4 text-center lg:text-start">¡Descarga el nuevo launcher oficial de PokeCube!</h1>
+            <div class="flex flex-col justify-center items-center gap-10 w-full lg:flex-row">
+               <Button title="Descargar" />
+               <a href="#features" class="relative w-2/3 px-20 py-3 text-primary-500 font-bold hover:text-white transition-all duration-500 cursor-pointer group">
+                  <span class="absolute top-0 left-0 w-5 h-2 border-t-2 border-l-2 border-primary-500 group-hover:w-full group-hover:border-white transition-all duration-500"></span>
+                  <span class="absolute top-0 right-0 w-5 h-2 border-t-2 border-r-2 border-primary-500 group-hover:h-full group-hover:border-white transition-all duration-500"></span>
+                  <span class="absolute bottom-0 left-0 w-5 h-2 border-b-2 border-l-2 border-primary-500 group-hover:h-full group-hover:border-white transition-all duration-500"></span>
+                  <span class="absolute bottom-0 right-0 w-5 h-2 border-b-2 border-r-2 border-primary-500 group-hover:w-full group-hover:border-white transition-all duration-500"></span>
+                  <p class="text-center">Ver más</p>
+               </a>
+            </div>
+         </div>
+      </div>
+      <Image class="absolute top-1/4 left-1/2 -translate-x-1/2 rounded-lg w-4/5 lg:w-3/4 opacity-80 lg:right-5 lg:left-auto lg:translate-x-0 lg:opacity-100" src={Launcher} alt='Launcher' />
+   </section>
+   <section id="features" class="min-h-screen px-5 py-30 flex gap-10 flex-col lg:flex-row">
+      <div class="flex flex-col gap-5 items-center justify-center lg:items-end py-5 lg:order-2">
+         <h1 class="uppercase text-4xl text-white font-bold text-center lg:text-end">¿Por qué usar el launcher personalizado?</h1>
+         <div class="relative w-full py-2">
+            <span class="absolute top-0 left-0 w-5 h-2 border-t-2 border-l-2 border-primary-500"></span>
+            <span class="absolute top-0 right-0 w-5 h-2 border-t-2 border-r-2 border-primary-500"></span>
+            <span class="absolute bottom-0 left-0 w-5 h-2 border-b-2 border-l-2 border-primary-500"></span>
+            <span class="absolute bottom-0 right-0 w-5 h-2 border-b-2 border-r-2 border-primary-500"></span>
+            <p class="text-center text-primary-500 font-bold">Características</p>
+         </div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+         {
+            features.map(feature => ( <FeatureCard title={feature.title} description={feature.description} icon={feature.icon} />))
+         }
+      </div>
+   </section>
+</MainLayout>
